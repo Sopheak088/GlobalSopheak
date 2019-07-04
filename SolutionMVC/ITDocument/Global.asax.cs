@@ -20,7 +20,6 @@ namespace ITDocument
 
             AutoMapperConfiguration.Configure();
             //Testing
-            //Ok testing from Desktop
         }
     }
 }
