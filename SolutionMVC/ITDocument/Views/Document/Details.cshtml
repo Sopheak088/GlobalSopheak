@@ -1,20 +1,22 @@
-﻿@model ITDocument.ViewModels.DocumentViewModel
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@model ITDocument.ViewModels.DocumentViewModel
 @{
     /**/
 
     ViewBag.Title = "Details";
 }
-    <section class="content-header">
-        <h1>
-            Document
-            <small>Document/Detail</small>
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
-            <li><a href="#">Document management</a></li>
-            <li class="active">Document</li>
-        </ol>
-    </section>
+<section class="content-header">
+    <h1>
+        Document
+        <small>Document/Detail</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+        <li><a href="#">Document management</a></li>
+        <li class="active">Document</li>
+    </ol>
+</section>
 <section class="content">
     <div class="row">
         <div class="col-xs-12">
