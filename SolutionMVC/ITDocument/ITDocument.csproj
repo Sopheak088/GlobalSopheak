@@ -8087,6 +8087,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Upload\" />
+    <Folder Include="Image\" />
     <Folder Include="Scripts\ckeditor\" />
   </ItemGroup>
   <ItemGroup>

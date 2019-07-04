@@ -1,5 +1,4 @@
-﻿using System;
-using ITDocument.Managers.Identity;
+﻿using ITDocument.Managers.Identity;
 using ITDocument.Models;
 using ITDocument.Models.Identity;
 using Microsoft.AspNet.Identity;
@@ -7,6 +6,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using System;
 
 namespace ITDocument
 {
@@ -31,11 +31,11 @@ namespace ITDocument
                 Provider = new CookieAuthenticationProvider
                 {
                     // Enables the application to validate the security stamp when the user logs in.
-                    // This is a security feature which is used when you change a password or add an external login to your account.  
+                    // This is a security feature which is used when you change a password or add an external login to your account.
                     OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser, string>(
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentityCallback: (manager, user) => user.GenerateUserIdentityAsync(manager),
-                        // Need to add THIS line because we added the third type argument (int) above:
+                            // Need to add THIS line because we added the third type argument (int) above:
                             getUserIdCallback: (claim) => claim.GetUserId())
                 }
             });
