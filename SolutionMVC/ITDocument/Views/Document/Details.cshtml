@@ -1,0 +1,108 @@
+﻿@model ITDocument.ViewModels.DocumentViewModel
+@{
+    /**/
+
+    ViewBag.Title = "Details";
+}
+    <section class="content-header">
+        <h1>
+            Document
+            <small>Document/Detail</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+            <li><a href="#">Document management</a></li>
+            <li class="active">Document</li>
+        </ol>
+    </section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    @using (Html.BeginForm("Details", "Document", null, FormMethod.Post, new { target = "_blank" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        <fieldset>
+                            @Html.HiddenFor(model => model.Id)
+                            <div class="editor-label">
+                                <label for="Name" class="col-sm-12">Name</label>
+                                <div class="col-sm-12">
+                                    @Html.DisplayFor(model => model.Name)
+                                </div>
+                            </div>
+                            <label for="Summary" class="col-sm-12">Summary</label>
+                            <div class="col-sm-12">
+                                @Html.DisplayFor(model => model.Summary)
+                            </div>
+                            <label for="Tag" class="col-sm-12">Tag</label>
+                            <div class="col-sm-12">
+                                @Html.DisplayFor(model => model.Tag)
+                            </div>
+                            <div class="col-sm-12">
+                                <label for="Content" class="col-sm-12">Content</label>
+                                <div style="margin-left: 10px;" name="Content" id="Content" rows="10" cols="80">
+                                    @Html.Raw(Model.Content)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Files:</label>
+                                <ul class="attachment">
+                                    @foreach (var item in Model.DocumentFiles)
+                                    {
+                                        <li>
+                                            <a class="title" href="~/App_Data/Download/?p=@(item.Id + item.Path)&d=@item.Name">@item.Name</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CreateBy)
+                            </div>
+                            <div class="form-group">
+                                @Html.DisplayFor(model => model.CreateBy)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CreateDate)
+                            </div>
+                            <div class="form-group">
+                                @Html.DisplayFor(model => model.CreateDate)
+                            </div>
+                            @if (!Model.UpdateBy.IsEmpty())
+                            {
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.UpdateBy)
+                                </div>
+                                <div class="form-group">
+                                    @Html.DisplayFor(model => model.UpdateBy)
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.UpdateDate)
+                                </div>
+                                <div class="form-group">
+                                    @Html.DisplayFor(model => model.UpdateDate)
+                                </div>
+                            }
+                            @if (Model.IsApproved)
+                            {
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.IsApproved)
+                                </div>
+                                <div class="form-group">
+                                    @Html.DisplayFor(model => model.IsApproved)
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ApprovedBy)
+                                </div>
+                                <div class="form-group">
+                                    @Html.DisplayFor(model => model.ApprovedDate)
+                                </div>
+                            }
+                        </fieldset>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

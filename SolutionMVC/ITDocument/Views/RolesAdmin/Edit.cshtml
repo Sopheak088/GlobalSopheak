@@ -1,0 +1,50 @@
+﻿@model ITDocument.ViewModels.RoleViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<section class="content-header">
+    <h1>
+        Edit RolesAdmin
+        <small>Roles Admin/Edit</small>
+    </h1>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            <h4>Roles.</h4>
+                            <hr />
+                            @Html.ValidationSummary(true)
+                            @Html.HiddenFor(model => model.Id)
+
+                            <div class="form-group">
+                                <label for="Name" class="col-sm-12">Name</label>
+                                <div class="col-sm-12">
+                                    <input type="text" class="form-control" id="Name" placeholder="Name" name="Name" value="@HttpUtility.HtmlDecode(Model.Name)">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input type="submit" value="Save" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div>
+                        @Html.ActionLink("Back to List", "Index")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

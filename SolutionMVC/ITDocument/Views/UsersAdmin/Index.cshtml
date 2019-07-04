@@ -1,0 +1,132 @@
+﻿@model IEnumerable<ITDocument.Models.Identity.ApplicationUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+<section class="content-header">
+    <h1>
+        Users Admin
+        <small> users Admin/Index</small>
+    </h1>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Search</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="row">
+                        @using (Html.BeginForm("Index", "UsersAdmin", FormMethod.Post))
+                        {
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="Keyword">Keyword</label>
+                                    <div>
+                                        <input class="form-control text-box single-line" id="search" name="search" type="text" />
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6"></div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <input type="submit" value="Search" class="btn btn-block btn-primary" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    *@if (Request.IsAuthenticated && User.IsInRole("Admin") || User.IsInRole("UsersAdminCreate"))
+                    {
+                        <a title="New" onclick="location.href = '@Url.Action("Create", "UsersAdmin", null)'" class="btn btn-xs btn-success pull-right">
+                            <i class="fa fa-fw fa-plus"></i>
+                        </a>
+                    }
+
+                    <table class="table">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UserName)
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UserName)
+                                </td>
+                                *
+                                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                                {
+                                    <td>
+                                        <a title="Edit" onclick="location.href = '@Url.Action("Edit", "UsersAdmin", new {id = item.Id})'" class="btn btn-xs btn-primary">
+                                            <i class="fa fa-fw fa-pencil"></i>
+                                        </a>
+
+                                        <a title="Delete" href='@Url.Action("Delete", "UsersAdmin", new {id = @item.Id})'
+                                           onclick="return confirm('Are you sure you wish to delete?')" class="btn  tn-xs  btn-danger">
+                                            <i class="fa fa-fw fa-close"></i>
+                                        </a>
+
+                                        <a href="@Url.Action("Details", "UsersAdmin", new {id = item.Id})"
+                                           type="submit"
+                                           id=item.Id
+                                           target="_blank"
+                                           class="btn btn-xs btn-default">
+                                            <i class="fa fa-fw fa-info"></i>
+                                        </a>
+                                    </td>
+                                }
+                                *
+                                @if (Request.IsAuthenticated && User.IsInRole("UsersAdminViewer"))
+                                {
+                                    <td>
+                                        <a href="@Url.Action("Details", "UsersAdmin", new {id = item.Id})"
+                                           type="submit"
+                                           id=item.Id
+                                           target="_blank"
+                                           class="btn btn-xs btn-default">
+                                            <i class="fa fa-fw fa-info"></i>
+                                        </a>
+                                    </td>
+                                }
+                                *
+                                @if (Request.IsAuthenticated && User.IsInRole("UsersAdminEditor"))
+                                {
+                                    <td>
+                                        <a title="Edit" onclick="location.href = '@Url.Action("Edit", "UsersAdmin", new {id = item.Id})'" class="btn btn-xs btn-primary">
+                                            <i class="fa fa-fw fa-pencil"></i>
+                                        </a>
+                                        <a href="@Url.Action("Details", "UsersAdmin", new {id = item.Id})"
+                                           type="submit"
+                                           id=item.Id
+                                           target="_blank"
+                                           class="btn btn-xs btn-default">
+                                            <i class="fa fa-fw fa-info"></i>
+                                        </a>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,99 @@
+﻿@model WebMvc.ViewModels.ApplicationDocumentViewModel
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Edit", "Document", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        @Html.HiddenFor(model => model.Id)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="form-group">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Summary)
+        </div>
+        <div class="form-group">
+            @Html.EditorFor(model => model.Summary)
+            @Html.ValidationMessageFor(model => model.Summary)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tag)
+        </div>
+        <div class="form-group">
+            @Html.EditorFor(model => model.Tag)
+            @Html.ValidationMessageFor(model => model.Tag)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Content)
+        </div>
+        <div class="form-group">
+            @Html.TextAreaFor(model => model.Content)
+            @Html.ValidationMessageFor(model => model.Content)
+            <div style="margin-left: 10px;">
+                <textarea name="Content" id="Content" rows="10" cols="80"></textarea>
+                <script>
+                    CKEDITOR.replace('Content');
+                </script>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Files:</label>
+        </div>
+        <div class="form-group">
+            <input type="file" name="file" multiple="multiple" />
+            <ul class="attachment">
+                @foreach (var item in Model.ApplicationFileViewModels)
+                {
+                    <li>
+                        <a class="title" href="~/App_Data/Download/?p=@(item.Id + item.Path)&d=@item.Name">@item.Name</a>
+                        <a href="javascript:void(0);" data-id="@item.Id" class="deleteItem">X</a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.deleteItem').click(function(e) {
+            e.preventDefault();
+            var $ctrl = $(this);
+            if (confirm('Do you really want to delete this file?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteFile")',
+                    type: 'POST',
+                    data: { id: $(this).data('id') }
+                }).done(function(data) {
+                    if (data.Result == "OK") {
+                        $ctrl.closest('li').remove();
+                    } else if (data.Result.Message) {
+                        alert(data.Result.Message);
+                    }
+                }).fail(function() {
+                    alert("There is something wrong. Please try again.");
+                });
+            }
+        });
+    });
+</script>   

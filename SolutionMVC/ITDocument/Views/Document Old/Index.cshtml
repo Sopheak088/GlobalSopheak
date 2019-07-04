@@ -1,0 +1,74 @@
+﻿@using Microsoft.Ajax.Utilities
+@model IEnumerable<WebMvc.ViewModels.ApplicationDocumentViewModel>
+
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+}
+
+<h2 style="text-align:center">List All Documents</h2>
+@using (Html.BeginForm("Index", "Document", FormMethod.Get))
+{
+    @*<input type="text" class="search" id="search" onkeyup="search()" placeholder="Search..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search...'" />
+        <label id="NotExist" style="display:none"></label>*@
+    <div>
+
+        @Html.TextBox("search")
+        <input type="submit" value="Search" /> <br />
+    </div>
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table" grid="1">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Summary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tag)
+        </th>
+        <th>Total Files</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Summary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tag)
+            </td>
+            <td>
+                @if (item.ApplicationFileViewModels.Count() == 0)
+                {
+                    <span>No File</span>
+                }
+                else
+                {
+                    <span>@item.ApplicationFileViewModels.Count() File(s)</span>
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>

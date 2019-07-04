@@ -1,0 +1,76 @@
+﻿@using ITDocument.Helpers
+<aside class="main-sidebar">
+
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="~/Content/Backend/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+                <p><a href="~/UserCenter/Manage" title="Account">admin</a></p>
+                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+        </div>
+
+        <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class="header">MAIN NAVIGATION</li>
+            <li class="">
+                <a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+            </li>
+            <li class="@(Html.IsCheckSelected("Home", "active") ? "active" : "")">
+                <a href="@Url.Content("~/Home/Index")"><i class="fa fa-home"></i> <span>Home</span></a>
+            </li>
+            <li class="header">System on</li>
+
+            @if (this.User.IsInRole("Admin") || this.User.IsInRole("DocumentView"))
+            {
+                <li class="@(Html.IsCheckSelected("Document", "active") ? "active" : "")">
+                    <a href="@Url.Content("~/Document/Index")"><i class="fa fa-book"></i> <span>Document</span></a>
+                </li>
+            }
+            
+            <li class="header">User management</li>
+            @if (this.User.IsInRole("Admin") || this.User.IsInRole("DocumentView"))
+            {
+
+                <li class="@(Html.IsCheckSelected("UsersAdmin", "active") ? "active" : "")">
+                    <a href="@Url.Content("~/UsersAdmin/Index")"><i class="fa fa-user"></i> <span>Users Admin</span></a>
+                </li>
+            }
+            @if (this.User.IsInRole("Admin") || this.User.IsInRole("DocumentView"))
+            {
+                <li class="@(Html.IsCheckSelected("GroupsAdmin", "active") ? "active" : "")">
+                    <a href="@Url.Content("~/GroupsAdmin/Index")"><i class="fa fa-group"></i> <span>Groups Admin</span></a>
+                </li>
+            }
+            @if (this.User.IsInRole("Admin") || this.User.IsInRole("DocumentView"))
+            {
+                <li class="@(Html.IsCheckSelected("RolesAdmin", "active") ? "active" : "")">
+                    <a href="@Url.Content("~/RolesAdmin/Index")"><i class="fa fa-user-circle-o"></i> <span>Roles Admin</span></a>
+                </li>
+            }
+
+            <li class="header">Helps</li>
+            <li class="@(Html.IsCheckSelected("Help", "active") ? "active" : "")">
+                <a href="@Url.Action("Index", "Help")"
+                   type="submit"
+                   target="_blank">
+                    <i class="fa fa-question-circle-o text-blue"></i>
+                    <span>Helps</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+</aside>
