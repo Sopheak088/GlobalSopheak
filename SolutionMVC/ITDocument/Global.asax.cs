@@ -19,8 +19,6 @@ namespace ITDocument
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             AutoMapperConfiguration.Configure();
-            //Testing
-            //from labtop
         }
     }
 }
