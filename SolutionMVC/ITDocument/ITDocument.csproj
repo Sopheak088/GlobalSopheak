@@ -184,6 +184,7 @@
     </Compile>
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\UrlHelpers.cs" />
+    <Compile Include="Image\Img.cs" />
     <Compile Include="Managers\DocumentManager.cs" />
     <Compile Include="Managers\Identity\ApplicationGroupManager.cs" />
     <Compile Include="Managers\Identity\ApplicationGroupRole.cs" />
@@ -8087,7 +8088,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Upload\" />
-    <Folder Include="Image\" />
     <Folder Include="Scripts\ckeditor\" />
   </ItemGroup>
   <ItemGroup>
